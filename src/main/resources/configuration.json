@@ -1,0 +1,17 @@
+[
+  {
+    "name": "backup-s3",
+    "source": "c:\\Git\\backup-s3",
+    "destination": "c:\\work\\backup-s3",
+    "directoriesToSkip": [
+      "c:\\Git\\backup-s3\\.bsp",
+      "c:\\Git\\backup-s3\\.idea",
+      "c:\\Git\\backup-s3\\.git",
+      "c:\\Git\\backup-s3\\logs",
+      "c:\\Git\\backup-s3\\project\\project",
+      "c:\\Git\\backup-s3\\project\\target",
+      "c:\\Git\\backup-s3\\target"
+    ],
+    "maxBackupDirectories": 2
+  }
+]
