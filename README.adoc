@@ -1,1 +1,17 @@
 = backup-s3
+
+Backup system.
+
+== Configuration
+Put JSON file into c:/Users/<user>/AppData/Roaming/backup-s3
+
+== Build
+Run command:
+[source]
+sbt clean dist
+
+== Running
+Run command from the <installation>/bin/
+
+[source]
+runWithPause.bat

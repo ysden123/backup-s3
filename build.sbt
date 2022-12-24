@@ -1,7 +1,7 @@
 import java.util.Calendar
 
 ThisBuild / scalaVersion := "3.2.1"
-ThisBuild / version := "3.0.0"
+ThisBuild / version := "3.0.1"
 ThisBuild / organization := "com.stulsoft"
 ThisBuild / organizationName := "stulsoft"
 
@@ -16,6 +16,7 @@ lazy val root = (project in file("."))
     libraryDependencies += "org.json4s" %% "json4s-native" % json4sVersion,
     libraryDependencies += "org.json4s" %% "json4s-jackson" % json4sVersion,
     libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.12.0",
+    libraryDependencies += "commons-io" % "commons-io" % "2.11.0",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.14" % Test
   )

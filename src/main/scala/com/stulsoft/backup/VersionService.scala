@@ -5,6 +5,7 @@
 package com.stulsoft.backup
 
 import com.typesafe.scalalogging.StrictLogging
+import org.apache.commons.io.FileUtils
 import os.{Path, PathChunk}
 import os.PathChunk.StringPathChunk
 
@@ -12,21 +13,20 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import scala.util.{Failure, Success, Try}
 
-/*
-import math.Fractional.Implicits.infixFractionalOps
-import math.Integral.Implicits.infixIntegralOps
-*/
-
 case class VersionService(destinationDirectory: String, maxBackupDirectories: Int) extends StrictLogging:
   def buildOutputDirectoryName(): Path =
     if findNumberOfExistingBackups() >= maxBackupDirectories then
-      findOldestBackupDirectory()
-        .foreach(p =>
-          try
-            logger.info("Going to delete {}", p)
-            os.remove.all(p)
-          catch
-            case exception: Exception => logger.error(exception.getMessage, exception)
+      findOldestBackupDirectories()
+        .foreach(seq =>
+          seq.foreach(p =>
+            try
+              val msg = s"Going to delete $p"
+              println(msg)
+              logger.info(msg)
+              FileUtils.deleteQuietly(p.toIO)
+            catch
+              case exception: Exception => logger.error(exception.getMessage, exception)
+          )
         )
 
     Path(s"$destinationDirectory/${buildOutputBackupDirectoryName()}")
@@ -37,12 +37,10 @@ case class VersionService(destinationDirectory: String, maxBackupDirectories: In
     catch
       case _ => 0
 
-  private def findOldestBackupDirectory(): Option[Path] =
-    Try(os
-      .list(Path(destinationDirectory))
-      .filter(p => os.isDir(p))
-      .reduceLeft((p1, p2) => if os.mtime(p1) < os.mtime(p2) then p1 else p2)) match
-      case Success(min) => Some(min)
+  private def findOldestBackupDirectories(): Option[Seq[Path]] =
+    val dirs = os.list(Path(destinationDirectory))
+    Try(dirs.filter(p => os.isDir(p)).sortBy(p => os.mtime(p))) match
+      case Success(sorted) => Some(sorted.take(sorted.size - (maxBackupDirectories - 1)))
       case Failure(_) => None
 
   private def buildOutputBackupDirectoryName(): String =
