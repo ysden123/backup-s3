@@ -1,7 +1,7 @@
 import java.util.Calendar
 
-ThisBuild / scalaVersion := "3.2.2"
-ThisBuild / version := "3.0.2"
+ThisBuild / scalaVersion := "3.3.1"
+ThisBuild / version := "3.0.3"
 ThisBuild / organization := "com.stulsoft"
 ThisBuild / organizationName := "stulsoft"
 
@@ -11,12 +11,12 @@ lazy val root = (project in file("."))
     name := "backup-s3",
     maintainer := "ysden123@gmail.com",
     libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
-    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.5",
-    libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.9.0",
+    libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.4.7",
+    libraryDependencies += "com.lihaoyi" %% "os-lib" % "0.9.1",
     libraryDependencies += "org.json4s" %% "json4s-native" % json4sVersion,
     libraryDependencies += "org.json4s" %% "json4s-jackson" % json4sVersion,
     libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.12.0",
-    libraryDependencies += "commons-io" % "commons-io" % "2.11.0",
+    libraryDependencies += "commons-io" % "commons-io" % "2.14.0",
 
     libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.15" % Test
   )
