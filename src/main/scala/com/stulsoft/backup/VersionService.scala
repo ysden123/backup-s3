@@ -5,12 +5,11 @@
 package com.stulsoft.backup
 
 import com.typesafe.scalalogging.StrictLogging
-import org.apache.commons.io.FileUtils
-import os.{Path, PathChunk}
-import os.PathChunk.StringPathChunk
+import os.Path
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import scala.sys.process._
 import scala.util.{Failure, Success, Try}
 
 case class VersionService(destinationDirectory: String, maxBackupDirectories: Int) extends StrictLogging:
@@ -23,7 +22,12 @@ case class VersionService(destinationDirectory: String, maxBackupDirectories: In
               val msg = s"Going to delete $p"
               println(msg)
               logger.info(msg)
-              FileUtils.deleteQuietly(p.toIO)
+              val command = Seq("cmd", "/c", "rmdir",
+                s""""${p.toString}"""",
+                "/s", "/q")
+              logger.info("Running {}", command.mkString(" "))
+              val result = command.!!
+              logger.info("Result: {}", result)
             catch
               case exception: Exception => logger.error(exception.getMessage, exception)
           )

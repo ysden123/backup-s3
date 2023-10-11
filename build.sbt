@@ -1,7 +1,7 @@
 import java.util.Calendar
 
 ThisBuild / scalaVersion := "3.3.1"
-ThisBuild / version := "3.0.3"
+ThisBuild / version := "3.1.0"
 ThisBuild / organization := "com.stulsoft"
 ThisBuild / organizationName := "stulsoft"
 
